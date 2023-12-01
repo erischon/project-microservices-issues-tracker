@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Issues API documentation
+  description: Contains all available API endpoints in this codebase
+  version: "1.0.1a"
+servers:
+  - url: http://localhost:3000
+    description: Local server
+paths:
+  /issues:
+    get:
+      summary: Get all issues
+      description: Get all issues
+      operationId: getIssues
+      tags:
+        - issues
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    title:
+                      type: string
+    post:
+      summary: Create a new issue
+      description: Create a new issue
+      operationId: createIssue
+      tags:
+        - issues
+      requestBody:
+        description: Issue object that needs to be added
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  title:
+                    type: string
