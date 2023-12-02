@@ -1,36 +1,39 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 
 CommentList.propTypes = {
-  comments: PropTypes.arrayOf(Object),
+  issueId: PropTypes.string.isRequired,
 };
 
-// Render a list of comments
-function CommentList({ comments }) {
+export default function CommentList({ issueId }) {
+  const [comments, setComments] = useState([]);
+
+  const fetchComments = async () => {
+    const res = await axios.get(
+      `${import.meta.env.VITE_COMMENTS_API_URL}/issues/${issueId}/comments`
+    );
+
+    setComments(res.data);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  });
+
   const renderedComments = comments.map((comment) => {
-    let content;
-
-    switch (comment?.status) {
-      case "approved":
-        content = comment?.content;
-        break;
-      case "pending":
-        content = "This comment is awaiting moderation";
-        break;
-      case "rejected":
-        content = "This comment has been rejected";
-        break;
-      default:
-        content = "This comment is awaiting moderation";
-    }
-
-    return <li key={comment?.id}>- {content}</li>;
+    return (
+      <li key={comment?.id} className="list-disc">
+        {comment?.content}
+      </li>
+    );
   });
 
   return (
     <>
-      <ul className="list-none grow">{renderedComments}</ul>
+      <div>
+        <ul>{renderedComments}</ul>
+      </div>
     </>
   );
 }
-
-export default CommentList;

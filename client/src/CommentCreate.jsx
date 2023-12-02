@@ -3,18 +3,21 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 CommentCreate.propTypes = {
-  postId: PropTypes.string.isRequired,
+  issueId: PropTypes.string.isRequired,
 };
 
-function CommentCreate({ postId }) {
+function CommentCreate({ issueId }) {
   const [content, setContent] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
-      content,
-    });
+    await axios.post(
+      `${import.meta.env.VITE_COMMENTS_API_URL}/issues/${issueId}/comments`,
+      {
+        content,
+      }
+    );
 
     setContent("");
   };
