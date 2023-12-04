@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// In-memory database
 const issues = {};
 
 app.get("/issues", (req, res) => {
