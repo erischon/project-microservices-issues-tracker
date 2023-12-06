@@ -6,7 +6,7 @@ CommentCreate.propTypes = {
   issueId: PropTypes.string.isRequired,
 };
 
-function CommentCreate({ issueId }) {
+export default function CommentCreate({ issueId }) {
   const [content, setContent] = useState("");
 
   const handleSubmit = async (event) => {
@@ -44,5 +44,3 @@ function CommentCreate({ issueId }) {
     </>
   );
 }
-
-export default CommentCreate;
