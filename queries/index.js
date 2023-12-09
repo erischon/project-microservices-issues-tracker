@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Get all issue
+// Get all issues
 app.get("/issues", (req, res) => {});
 
 // Create an issue

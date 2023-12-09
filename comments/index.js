@@ -14,10 +14,12 @@ app.use(cors());
 // In-memory database
 const commentsByIssueId = {};
 
+// Get all comments for an issue
 app.get("/issues/:id/comments", (req, res) => {
   res.send(commentsByIssueId[req.params.id] || []);
 });
 
+// Create a comment for an issue
 app.post("/issues/:id/comments", async (req, res) => {
   const commentId = randomBytes(4).toString("hex");
 
