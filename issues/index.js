@@ -2,8 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { randomBytes } from "crypto";
+import axios from "axios";
 
 const PORT = 4000;
+const EVENT_BUS_URL = "http://localhost:4005/events";
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,7 +18,7 @@ app.get("/issues", (req, res) => {
   res.send(issues);
 });
 
-app.post("/issues", (req, res) => {
+app.post("/issues", async (req, res) => {
   const id = randomBytes(4).toString("hex");
   const { title } = req.body;
 
@@ -24,6 +26,14 @@ app.post("/issues", (req, res) => {
     id,
     title,
   };
+
+  await axios.post(EVENT_BUS_URL, {
+    type: "IssueCreated",
+    data: {
+      id,
+      title,
+    },
+  });
 
   res.status(201).send(issues[id]);
 });
