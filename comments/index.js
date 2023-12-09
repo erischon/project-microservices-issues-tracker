@@ -41,6 +41,13 @@ app.post("/issues/:id/comments", async (req, res) => {
   res.status(201).send(comments);
 });
 
+// Receive events from event bus
+app.post("/events", (req, res) => {
+  console.log("Received Event:", req.body.type);
+
+  res.send({});
+});
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
