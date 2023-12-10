@@ -36,7 +36,7 @@ app.post("/issues/:id/comments", async (req, res) => {
     data: {
       id: commentId,
       content,
-      postId: req.params.id,
+      issueId: req.params.id,
     },
   });
 
