@@ -9,9 +9,11 @@ export default function IssueList() {
 
   const fetchIssues = async () => {
     const res = await axios.get(
-      `${import.meta.env.VITE_ISSUES_API_URL}/issues`
+      `${import.meta.env.VITE_QUERIES_API_URL}/issues`
     );
-    console.log(res.data);
+
+    console.log("Data: ", res.data);
+
     setIssues(res.data);
   };
 
@@ -27,7 +29,7 @@ export default function IssueList() {
       >
         <h3 className="font-semibold text-lg">{issue.title}</h3>
 
-        <CommentList issueId={issue.id} />
+        <CommentList comments={issue.comments} />
 
         <CommentCreate issueId={issue.id} />
       </div>
