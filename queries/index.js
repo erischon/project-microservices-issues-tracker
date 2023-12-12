@@ -26,11 +26,11 @@ app.post("/events", (req, res) => {
   }
 
   if (type === "CommentCreated") {
-    const { id, content, issueId } = data;
+    const { id, content, issueId, status } = data;
 
     const issue = issues[issueId];
 
-    issue.comments.push({ id, content });
+    issue.comments.push({ id, content, status });
   }
 
   console.log("Issues: ", issues);
