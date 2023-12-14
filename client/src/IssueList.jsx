@@ -25,7 +25,7 @@ export default function IssueList() {
     return (
       <div
         key={issue.id}
-        className="flex flex-col p-2 border gap-2 h-full w-full border-slate-600 bg-gray-50"
+        className="flex flex-col p-5 border gap-2 h-full w-full border-slate-600 bg-gray-50 rounded-lg"
       >
         <h3 className="font-semibold text-lg">{issue.title}</h3>
 
@@ -36,5 +36,5 @@ export default function IssueList() {
     );
   });
 
-  return <div className="grid grid-cols-3 gap-2">{renderedIssues}</div>;
+  return <div className="grid grid-cols-2 gap-5">{renderedIssues}</div>;
 }
