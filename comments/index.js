@@ -49,8 +49,36 @@ app.post("/issues/:id/comments", async (req, res) => {
 
 // POST /events
 // Receive events from event bus
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
   console.log("Received Event:", req.body.type);
+
+  const { type, data } = req.body;
+
+  if (type === "CommentModerated") {
+    const { issueId, id, status, content } = data;
+
+    // Get the comments for the issue with the given id
+    const comments = commentsByissueId[issueId];
+
+    // Find the comment with the given id
+    const comment = comments.find((comment) => {
+      return comment.id === id;
+    });
+
+    // Update the status of the comment
+    comment.status = status;
+
+    // issue Comment Updated event to event bus
+    await axios.post(EVENT_BUS_URL, {
+      type: "CommentUpdated",
+      data: {
+        id,
+        issueId,
+        status,
+        content,
+      },
+    });
+  }
 
   res.send({});
 });
